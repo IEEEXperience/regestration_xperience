@@ -51,6 +51,7 @@ select.in{appearance:none;-webkit-appearance:none;padding-right:40px;background-
 .pill span{display:flex;align-items:center;justify-content:center;min-height:50px;border:2px solid #9c7b3c;border-radius:4px;background:rgba(255,255,255,.4);font-weight:700;letter-spacing:.18em;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
 .pill input:checked+span{background:linear-gradient(180deg,#0a3a5c,#06223a);color:var(--gold2);border-color:#06223a}
 .sub{display:none}.sub.on{display:flex}
+.fee{display:none;padding:12px 14px;border:1.5px solid #9c7b3c;border-left:5px solid #d9b46c;border-radius:4px;background:rgba(217,180,108,.28);font-size:12px;letter-spacing:.08em;line-height:1.55;font-weight:600;color:var(--ink)}.fee.on{display:block}.fee b{letter-spacing:.14em;color:#0a3a5c}
 .chk{display:flex;gap:12px;align-items:flex-start;position:relative;cursor:pointer;font-size:13px;letter-spacing:.06em;line-height:1.4;font-weight:600}
 .chk span{flex:none;width:26px;height:26px;border:2px solid #9c7b3c;border-radius:4px;background:rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;color:transparent;font-weight:700}
 .chk input:checked+span{background:#0a3a5c;color:var(--gold2)}
@@ -96,7 +97,8 @@ select.in{appearance:none;-webkit-appearance:none;padding-right:40px;background-
 <div class="f sub" id="g-other"><label for="other">YOUR BRANCH / INSTITUTION <i>*</i></label><input class="in" id="other" type="text" maxlength="60" placeholder="Name of your branch"><span class="msg">PLEASE SPECIFY YOUR BRANCH</span></div>
 <div class="f" id="g-member"><span class="lb">ARE YOU AN IEEE MEMBER? <i>*</i></span>
 <div class="pills" role="radiogroup" aria-label="IEEE member"><label class="pill"><input type="radio" name="member" value="Yes"><span>YES</span></label><label class="pill"><input type="radio" name="member" value="No"><span>NO</span></label></div><span class="msg">PLEASE CHOOSE AN ANSWER</span></div>
-<div class="f sub" id="g-mid"><label for="mid">IEEE MEMBERSHIP NUMBER (OPTIONAL)</label><input class="in" id="mid" type="text" maxlength="20" inputmode="numeric" placeholder="Membership number"></div>
+<div class="f sub" id="g-mid"><label for="mid">IEEE MEMBERSHIP NUMBER <i>*</i></label><input class="in" id="mid" type="text" maxlength="20" inputmode="numeric" placeholder="Your IEEE membership number"><span class="msg">PLEASE ENTER YOUR IEEE MEMBERSHIP NUMBER</span></div>
+<div class="fee" id="g-fee" role="note"><b>PARTICIPATION FEE: 5 DT</b><br>A participation fee of <b>5 DT</b> applies for non-IEEE members. No online payment is needed now. Please contact the organizing team for payment details.</div>
 <div class="f" id="g-level"><label for="level">LEVEL OF STUDY <i>*</i></label>
 <select class="in" id="level"><option value="">Select your level</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>Other</option></select><span class="msg">PLEASE SELECT YOUR LEVEL</span></div>
 <div class="f" id="g-field"><label for="field">FIELD OF STUDY</label><input class="in" id="field" type="text" maxlength="60" placeholder="e.g. Computer Science"></div>
@@ -111,6 +113,7 @@ select.in{appearance:none;-webkit-appearance:none;padding-right:40px;background-
 <div class="fs" aria-hidden="true"><svg viewBox="0 0 100 100"><polygon points="50,10 58,42 90,50 58,58 50,90 42,58 10,50 42,42"/></svg></div>
 <p id="fname">THANK YOU</p>
 <p class="t2">YOUR MAIL APP SHOULD HAVE OPENED WITH YOUR DETAILS.<br>PRESS “SEND” TO COMPLETE YOUR REGISTRATION.</p>
+<p class="t2" id="feeNote" style="display:none;color:var(--gold2)">A PARTICIPATION FEE OF 5 DT APPLIES FOR NON-IEEE MEMBERS.<br>PLEASE CONTACT THE ORGANIZING TEAM FOR PAYMENT DETAILS.</p>
 <div class="row"><button class="lnk" id="again">OPEN MAIL APP</button><button class="lnk" id="copy">COPY DETAILS</button><button class="lnk" id="back">EDIT FORM</button></div>
 </section>
 </main>
@@ -125,11 +128,11 @@ var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on")
 function val(id){return $(id).value.replace(/\s+/g," ").trim()}
 function member(){var r=document.querySelector("input[name=member]:checked");return r?r.value:""}
 $("#branch").addEventListener("change",function(){$("#g-other").classList.toggle("on",this.value==="Other")});
-document.querySelectorAll("input[name=member]").forEach(function(r){r.addEventListener("change",function(){$("#g-mid").classList.toggle("on",member()==="Yes")})});
+document.querySelectorAll("input[name=member]").forEach(function(r){r.addEventListener("change",function(){$("#g-mid").classList.toggle("on",member()==="Yes");$("#g-fee").classList.toggle("on",member()==="No");if(member()!=="Yes")$("#g-mid").classList.remove("err");$("#g-member").classList.remove("err")})});
 function bad(g,on){var el=$(g);el.classList.remove("err");if(on){void el.offsetWidth;el.classList.add("err")}return on}
 function build(){
  var br=val("#branch")==="Other"?"Other – "+val("#other"):val("#branch");
- var mem=member()==="Yes"?"Yes"+(val("#mid")?" (ID: "+val("#mid")+")":""):"No";
+ var mem=member()==="Yes"?"Yes (IEEE membership number: "+val("#mid")+")":"No\nParticipation fee: 5 DT to be paid (non-IEEE member)";
  return "Dear IEEE FSEGS Student Branch Team,\n\nPlease find my registration details for IEEE Xperience 2.0 – Marine Edition (theme: Ocean of Secrets).\n\nFull name: "+val("#name")+"\nEmail: "+val("#email")+"\nPhone: "+val("#phone")+"\nStudent branch: "+br+"\nIEEE member: "+mem+"\nLevel of study: "+val("#level")+"\nField of study: "+(val("#field")||"-")+"\n\nEvent: 02 December 2026, 14:00 – 18:00, FSEGS Sfax\n\nBest regards,\n"+val("#name")}
 function mail(){location.href="mailto:"+TO+"?subject="+encodeURIComponent(SUBJ)+"&body="+encodeURIComponent(last)}
 $("#reg").addEventListener("submit",function(e){
@@ -141,12 +144,14 @@ $("#reg").addEventListener("submit",function(e){
   bad("#g-branch",!val("#branch")),
   bad("#g-other",val("#branch")==="Other"&&val("#other").length<2),
   bad("#g-member",!member()),
+  bad("#g-mid",member()==="Yes"&&val("#mid").replace(/\D/g,"").length<6),
   bad("#g-level",!val("#level")),
   bad("#g-ok",!$("#ok").checked)];
  var first=document.querySelector(".f.err");
  if(first){first.scrollIntoView({behavior:"smooth",block:"center"});toast("PLEASE COMPLETE THE HIGHLIGHTED FIELDS");return}
  last=build();
  $("#fname").textContent="THANK YOU, "+val("#name").toUpperCase();
+ $("#feeNote").style.display=member()==="No"?"block":"none";
  $("#final").classList.add("on");
  mail();
 });
