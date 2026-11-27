@@ -86,7 +86,7 @@ select.in{appearance:none;-webkit-appearance:none;padding-right:40px;background-
 <div class="k">JOIN THE VOYAGE</div>
 <div class="title">REGISTRATION</div>
 <div class="thm"><small>IEEE XPERIENCE 2.0 · MARINE EDITION</small>OCEAN OF SECRETS</div>
-<div class="det"><div><small>DATE</small><b>02 December 2026</b></div><div><small>TIME</small><b>14:00 – 18:00</b></div><div><small>VENUE</small><b>FSEGS Sfax</b></div></div>
+<div class="det"><div><small>DATE</small><b>05 December 2026</b></div><div><small>TIME</small><b>14:00 – 18:00</b></div><div><small>VENUE</small><b>FSEGS Sfax</b></div></div>
 
 <form id="reg" novalidate>
 <div class="f" id="g-name"><label for="name">FULL NAME <i>*</i></label><input class="in" id="name" type="text" maxlength="60" autocomplete="name" placeholder="Your full name"><span class="msg">PLEASE ENTER YOUR FULL NAME</span></div>
@@ -102,7 +102,7 @@ select.in{appearance:none;-webkit-appearance:none;padding-right:40px;background-
 <div class="f" id="g-level"><label for="level">LEVEL OF STUDY <i>*</i></label>
 <select class="in" id="level"><option value="">Select your level</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>Other</option></select><span class="msg">PLEASE SELECT YOUR LEVEL</span></div>
 <div class="f" id="g-field"><label for="field">FIELD OF STUDY</label><input class="in" id="field" type="text" maxlength="60" placeholder="e.g. Computer Science"></div>
-<div class="f" id="g-ok"><label class="chk"><input type="checkbox" id="ok"><span aria-hidden="true">✓</span><em style="font-style:normal">I confirm my attendance on 02 December 2026, 14:00 – 18:00 at FSEGS Sfax.</em></label><span class="msg">PLEASE CONFIRM TO CONTINUE</span></div>
+<div class="f" id="g-ok"><label class="chk"><input type="checkbox" id="ok"><span aria-hidden="true">✓</span><em style="font-style:normal">I confirm my attendance on 05 December 2026, 14:00 – 18:00 at FSEGS Sfax.</em></label><span class="msg">PLEASE CONFIRM TO CONTINUE</span></div>
 <button class="cta" type="submit">REGISTER NOW</button>
 <p class="note">Your mail app will open with your details. Press “Send” to complete your registration.</p>
 </form>
@@ -133,7 +133,7 @@ function bad(g,on){var el=$(g);el.classList.remove("err");if(on){void el.offsetW
 function build(){
  var br=val("#branch")==="Other"?"Other – "+val("#other"):val("#branch");
  var mem=member()==="Yes"?"Yes (IEEE membership number: "+val("#mid")+")":"No\nParticipation fee: 5 DT to be paid (non-IEEE member)";
- return "Dear IEEE FSEGS Student Branch Team,\n\nPlease find my registration details for IEEE Xperience 2.0 – Marine Edition (theme: Ocean of Secrets).\n\nFull name: "+val("#name")+"\nEmail: "+val("#email")+"\nPhone: "+val("#phone")+"\nStudent branch: "+br+"\nIEEE member: "+mem+"\nLevel of study: "+val("#level")+"\nField of study: "+(val("#field")||"-")+"\n\nEvent: 02 December 2026, 14:00 – 18:00, FSEGS Sfax\n\nBest regards,\n"+val("#name")}
+ return "Dear IEEE FSEGS Student Branch Team,\n\nPlease find my registration details for IEEE Xperience 2.0 – Marine Edition (theme: Ocean of Secrets).\n\nFull name: "+val("#name")+"\nEmail: "+val("#email")+"\nPhone: "+val("#phone")+"\nStudent branch: "+br+"\nIEEE member: "+mem+"\nLevel of study: "+val("#level")+"\nField of study: "+(val("#field")||"-")+"\n\nEvent: 05 December 2026, 14:00 – 18:00, FSEGS Sfax\n\nBest regards,\n"+val("#name")}
 function mail(){location.href="mailto:"+TO+"?subject="+encodeURIComponent(SUBJ)+"&body="+encodeURIComponent(last)}
 $("#reg").addEventListener("submit",function(e){
  e.preventDefault();
